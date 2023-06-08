@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends 'web.html' %}
+{% block content %}
+<html lang="en">
+<head>
+
+</head>
+
+<body>
+<div class="card">
+           <div class="card-body">
+           <div class="card-title">Vertical Form</div>
+           <hr>
+             <form method="post" action="{% url 'addbooksdb' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                 <select class="form-control" name="CategoryName">
+                                    {% for i in cat %}
+                                <option>{{i.CategoryName}}</option>
+                                    {% endfor %}
+</select>
+           <br>
+           <div class="form-group">
+            <label for="input-2">Enter Book Name</label>
+            <input type="text" class="form-control" id="input-2" placeholder="Enter Book Name" name="BookName">
+           </div>
+                <div class="form-group">
+            <label for="input-2">Enter Auther Name</label>
+            <input type="text" class="form-control" id="" placeholder="Enter Auther Name" name="AutherName">
+           </div><br>
+                <div class="form-group">
+            <label for="input-2">Enter Language</label>
+            <input type="text" class="form-control" id="" placeholder="Enter Language" name="Language">
+           </div><br>
+
+                <div class="form-group">
+            <label for="input-2">Enter Book Price</label>
+            <input type="text" class="form-control" id="" placeholder="Enter Book Price" name="Price">
+           </div>
+                <div class="form-group">
+            <label for="input-2">Enter Quantity</label>
+            <input type="number" class="form-control" id="" placeholder="Enter Quantity" name="qty">
+           </div><br>
+
+<div class="custom-file">
+
+  <input type="file" class="custom-file-input" id="customFile" name="image">
+  <label class="custom-file-label" for="customFile">Choose Image</label>
+</div><br><br>
+
+
+           <br>
+           <div class="form-group">
+            <button type="submit" class="btn btn-light px-5"><i class="icon-lock"></i> Submit</button>
+          </div>
+          </form>
+         </div>
+         </div>
+
+
+
+
+</body>
+</html>
+{% endblock %}

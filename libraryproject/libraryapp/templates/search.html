@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+{% extends 'indexs.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">z
+</head>
+<body>
+
+
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<div class="single-price no-padding" style="padding:100px;">
+    {% for i in results %}
+
+								<div class="price-top">
+									<h4>{{i.BookName}}</h4>
+								</div>
+								<div  style="height:500px; padding-right:800px;"><img class="" src="{{i.Image.url}}" width="300px" height="300px";><br><br>
+									<h1>Type:{{i.CategoryName}}</h1><br>
+                                     <form method="post" action="{% url 'back' itemspro=i.id dataid=request.session.username %}">
+                                         {% csrf_token %}
+                                         {% for j in data %}
+                                     <input type="hidden" name="Username" id="username" value="{{j.username}}">
+
+                                         <input type="hidden" name="Email" id="Email" value="{{j.email}}">
+{% endfor %}
+                                         <input type="hidden" name="BookName" id="BookName" value="{{i.BookName}}">
+                                         <input type="hidden" name="AutherName" id="AutherName" value="{{i.AutherName}}">
+                                         <input type="hidden" name="Language" id="Language" value="{{i.Language}}">
+                                         <input type="hidden" name="Price" id="Price" value="{{i.Price}}">
+                                         <input type="hidden" name="qty" id="qty" value="{{i.qty}}">
+                                                {% if i.qty >= 1 %}
+                                                <button type="hidden" class="btn btn-sm btn-primary px-3">Request Book</button>
+{% else %}
+                                         <td>  <button type="hidden" class="btn btn-danger">Out of Stock</button>
+                                             {% endif %}
+
+{% endfor %}
+                                             {% if results %}
+		<div class="col-lg-6" style="width:600px; padding-left:400px; padding-bottam:100px; margin-top:-400px;">
+          <div class="card"  style="width:800px;">
+            <div class="card-body">
+              <h5 class="card-title">Book Details</h5>
+			  <div class="table-responsive">
+               <table class="table">
+                  <thead>
+                    <tr>
+
+                      <th scope="col">Book Name</th>
+                      <th scope="col">Auther Name</th>
+                      <th scope="col">Language</th>
+                        <th scope="col">Book Price</th>
+                         <th scope="col">Quantity</th>
+                         <td>Option</td>
+
+
+                    </tr>
+                  </thead>
+                   {% for i in results %}
+
+                  <tbody>
+                    <tr>
+
+                      <td>{{i.BookName}}</td>
+                      <td>{{i.AutherName}}</td>
+                      <td>{{i.Language}}</td>
+                        <td>{{i.Price}}</td>
+                        <td>{% if i.qty >= 1 %} {{i.qty}} {% else %}Out Of Stock {% endif %}</td>
+                        {% if i.qty >= 1 %}
+                         <td>  <button type="hidden" class="btn btn-sm btn-primary px-3">Request Book</button>
+                   {% else %}
+                   <td>  <button type="hidden" class="btn btn-danger">Out of Stock</button>
+                   {% endif %}
+                                     </form></td>
+
+
+
+                    </tr>
+					<br><br><br>
+
+                    {% endfor %}
+
+
+<!--                    <tr>-->
+<!--                      <th scope="row">2</th>-->
+<!--                      <td>Jacob</td>-->
+<!--                      <td>Thornton</td>-->
+<!--                      <td>@fat</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                      <th scope="row">3</th>-->
+<!--                      <td>Larry</td>-->
+<!--                      <td>the Bird</td>-->
+<!--                      <td>@twitter</td>-->
+<!--                    </tr>-->
+                  </tbody>
+                </table>
+            </div>
+            </div>
+          </div>
+        </div>
+								</div>
+{% else %}
+<div style="width:400px;height:80px; background-color:white; border: 5px solid black; padding: 10px;">
+        <h1>Invalid BookName</h1>
+    </div>
+    {% endif %}
+
+
+
+
+
+
+
+
+
+<br><br>
+
+
+              <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+{% if messages %}
+  {% for message in messages %}
+    {% if message.tags == 'warning' %}
+      <script>
+        swal.fire({
+          text: '{{ message }}',
+          icon: 'warning'
+        });
+      </script>
+    {% elif message.tags == 'error' %}
+      <script>
+        swal.fire({
+          text: '{{ message }}',
+          icon: 'error'
+        });
+      </script>
+    {% else %}
+      <script>
+        swal.fire({
+          text: '{{ message }}',
+          icon: 'success'
+        });
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+
+</body>
+{% endblock %}
+</html>

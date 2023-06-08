@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+{% extends 'indexs.html' %}
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<br><br><br><br><br><br><br><br>
+<div style="padding:100px; ">
+<!--<img src="{% static 'img/b.jpg' %}" width="400px;" height="500px;" style="padding-top:150px; padding-left:100px;">-->
+<div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="margin-top:200px;">
+                <h6 class="section-title bg-white text-center text-primary px-3">Packages</h6>
+                <h1 class="mb-5">Issued Books</h1>
+            </div>
+<div class="card" style="margin-top:100px; width:1000px; margin-left:100px; margin-bottum:150px;">
+            <div class="card-body" style="border: 3px solid black;">
+              <h5 class="card-title">Books</h5>
+			  <div class="table-responsive">
+               <table class="table table-striped" style="border: 5px solid black;">
+                  <thead>
+                    <tr>
+                      <th scope="col">Book Name</th>
+
+
+                      <th scope="col">Price</th>
+                        <th scope="col">Start Date</th>
+                      <th scope="col">End Date</th>
+                        <th scope="col">Due</th>
+                        <th scope="col">Due Price</th>
+                        <th scope="col">TotalPrice</th>
+
+                        <th scope="col">Option</th>
+                    </tr>
+                  </thead>
+                   {% for i in data %}
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{i.BookName}}</th>
+
+
+                      <td>{{i.Price}}</td>
+                        <td>{{i.start_date}}</td>
+                        <td>{{ i.end_date }}</td>
+                        <td>
+      {% if i.extra_days %}
+        Due
+      {% else %}
+        No due
+      {% endif %}
+    </td>
+
+                        <td>{% if i.extra_days %}
+                            {{i.extra_days_price}}
+                        {% else %}
+                        No due
+                        {% endif %}</td>
+
+
+                        <td> {% if i.extra_days %}
+        {{ i.Price|add:i.extra_days_price }}
+      {% else %}
+        {{ i.Price }}
+      {% endif %}</td>
+
+
+
+                          <td><form method="post" action="{% url 'returnbooks' dataid=i.id itemspro=i.Username %}">
+                                         {% csrf_token %}
+                                      {% for j in book %}
+                                     <input type="hidden" name="Username" id="username" value="{{j.username}}">
+
+                                         <input type="hidden" name="Email" id="Email" value="{{j.email}}">
+{% endfor %}
+                                         <input type="hidden" name="BookName" id="BookName" value="{{i.BookName}}">
+                                         <input type="hidden" name="AutherName" id="AutherName" value="{{i.AutherName}}">
+                                         <input type="hidden" name="Language" id="Language" value="{{i.Language}}">
+                                         <input type="hidden" name="Price" id="Price" value="{{i.Price}}">
+                                         <input type="hidden" name="qty" id="qty" value="{{i.qty}}">
+                              <input type="hidden" name="start_date" id="start_date" value="{{i.start_date}}">
+                              <input type="hidden" name="end_date" id="end_date" value="{{i.end_date}}">
+                              <input type="hidden" name="Due" id="Due" value="
+      {% if i.extra_days %}
+        Due
+      {% else %}
+        No due
+      {% endif %}">
+                              <input type="hidden" name="DuePrice" id="DuePrice" value="{% if i.extra_days %}
+                            {{i.extra_days_price}}
+                        {% else %}
+                        No due
+                        {% endif %}">
+                              <input type="hidden" name="TotalPrice" id="TotalPrice" value="{% if i.extra_days %}{{ i.Price|add:i.extra_days_price }}{% else %}{{ i.Price }}{% endif %}">
+
+                            <button style="border: 2px solid black; width:100px;" class="btn btn-primary" id="btn1" type="submit">Return</button>
+                            </form></td>
+
+
+                    </tr>
+                    </tr>
+
+
+                  </tbody>
+                   {% endfor %}
+                </table>
+            </div>
+            </div>
+          </div>
+    {% if messages %}
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      {% for message in messages %}
+        {% if message.tags == 'success' %}
+          setTimeout(function() {
+            alert("{{ message }}");
+          }, 100);
+        {% elif message.tags == 'error' %}
+          setTimeout(function() {
+            alert("{{ message }}");
+          }, 100);
+        {% else %}
+          setTimeout(function() {
+            alert("{{ message }}");
+          }, 100);
+        {% endif %}
+      {% endfor %}
+    });
+  </script>
+{% endif %}
+
+
+
+</div>
+<br><br><br>
+{% endblock %}
+
+
+
+
+</body>
+
+</html>

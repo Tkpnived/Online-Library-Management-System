@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+{% extends 'indexs.html' %}
+
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<br><br><br>
+<div style="padding:100px; padding-top:200px;" >
+
+<div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="margin-top:200px;">
+                <h6 class="section-title bg-white text-center text-primary px-3">Payments</h6>
+                <h1 class="mb-5">Payment</h1>
+            </div>
+<div class="card" style="margin-top:100px; width:1000px; margin-left:100px; margin-bottum:150px;">
+            <div class="card-body" style="border: 3px solid black;">
+              <h5 class="card-title">Payment</h5>
+			  <div class="table-responsive">
+               <table class="table table-striped" style="border: 5px solid black;">
+                  <thead>
+                    <tr>
+                      <th scope="col">Book Name</th>
+
+                      <th scope="col">Price</th>
+                        <th scope="col">Due</th>
+                        <th scope="col">DuePrice</th>
+                        <th scope="col">TotalPrice</th>
+                        <th scope="col">Option</th>
+                    </tr>
+                  </thead>
+
+                   {% for i in data %}
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{i.BookName}}</th>
+
+                      <td>{{i.Price}}</td>
+                        <td>{{i.Due}}</td>
+                      <td>{{i.DuePrice}}</td>
+
+                      <td>{{i.TotalPrice}}</td>
+                        <td><form method="post" action="{% url 'complected' dataid=i.id %}">
+                                         {% csrf_token %}
+                            <input type="hidden" name="Username"  value="{{i.Username}}">
+
+                                         <input type="hidden" name="BookName"  value="{{i.BookName}}">
+
+                                         <input type="hidden" name="Due"  value="{{i.Due}}">
+                                        <input type="hidden" name="BookPrice"  value="{{i.BookPrice}}">
+                                         <input type="hidden" name="DuePrice"  value="{{i.DuePrice}}">
+                                        <input type="hidden" name="Total"  value="{{i.TotalPrice}}">
+
+
+
+                            <button class="btn btn-primary"  type="submit">Pay</button>
+                            </form></td>
+
+
+                    </tr>
+
+
+                  </tbody>
+                   {% endfor %}
+                </table>
+            </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+</div>
+
+<br><br><br><br><br><br>
+   {% if messages %}
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      {% for message in messages %}
+        {% if message.tags == 'success' %}
+          setTimeout(function() {
+            alert("{{ message }}");
+          }, 100);
+        {% elif message.tags == 'error' %}
+          setTimeout(function() {
+            alert("{{ message }}");
+          }, 100);
+        {% else %}
+          setTimeout(function() {
+            alert("{{ message }}");
+          }, 100);
+        {% endif %}
+      {% endfor %}
+    });
+  </script>
+{% endif %}
+{% endblock %}
+
+
+</body>
+</html>

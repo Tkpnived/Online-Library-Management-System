@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends 'web.html' %}
+{% block content %}
+<html lang="en">
+<head>
+
+</head>
+
+<body>
+<div class="col-lg-6">
+          <div class="card"  style="width:1100px;">
+            <div class="card-body">
+              <h1 class="card-title">Members</h1>
+			  <div class="table-responsive">
+               <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">username</th>
+
+                      <th scope="col">BookName</th>
+                      <th scope="col">Price</th>
+                        <th scope="col">Due</th>
+                        <th scope="col">DuePrice</th>
+                        <th scope="col">TotalPrice</th>
+
+                        <th scope="col">Option</th>
+                    </tr>
+                  </thead>
+                   {% for i in data %}
+                  <tbody>
+                    <tr>
+                        <th>{{i.Username}}</th>
+                      <th>{{i.BookName}}</th>
+
+                        <td>{{i.Price}}</td>
+                        <td>{{i.Due}}</td>
+                      <td>{{i.DuePrice}}</td>
+                        <td>{{i.TotalPrice}}</td>
+
+
+                        <td> <form action="{% url 'deletepay' dataid=i.id %}">
+                            <button class="btn btn-primary" type="submit">Remove</button>
+                            </form></td>
+
+
+                    </tr>
+                    {% endfor %}
+<!--                    <tr>-->
+<!--                      <th scope="row">2</th>-->
+<!--                      <td>Jacob</td>-->
+<!--                      <td>Thornton</td>-->
+<!--                      <td>@fat</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                      <th scope="row">3</th>-->
+<!--                      <td>Larry</td>-->
+<!--                      <td>the Bird</td>-->
+<!--                      <td>@twitter</td>-->
+<!--                    </tr>-->
+                  </tbody>
+                </table>
+            </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+</body>
+</html>
+{% endblock %}

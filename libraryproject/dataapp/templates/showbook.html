@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends 'web.html' %}
+{% block content %}
+<html lang="en">
+<head>
+
+</head>
+
+<body>
+<div class="col-lg-6">
+          <div class="card"  style="width:1100px;">
+            <div class="card-body">
+              <h5 class="card-title">All Books</h5>
+			  <div class="table-responsive">
+               <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Category</th>
+                      <th scope="col">Book Name</th>
+                      <th scope="col">Auther Name</th>
+                      <th scope="col">Language</th>
+                        <th scope="col">Book Price</th>
+                         <th scope="col">Quantity</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Option</th>
+                    </tr>
+                  </thead>
+                   {% for i in book %}
+                  <tbody>
+                    <tr>
+                      <th>{{i.CategoryName}}</th>
+                      <td>{{i.BookName}}</td>
+                      <td>{{i.AutherName}}</td>
+                      <td>{{i.Language}}</td>
+                        <td>{{i.Price}}</td>
+                        <td>{% if i.qty < 1 %} Out Of Stock {% else %}{{i.qty}} {% endif %}</td>
+
+                        <td><img src="{{i.Image.url}}" width="100px" height="80px";></td>
+                        <td> <form action="{% url 'editbook' dataid=i.id %}">
+                            <button class="btn btn-primary" type="submit">Edit</button>
+                            </form></td>
+                        <td> <form action="{% url 'deletebook' dataid=i.id %}">
+                            <button class="btn btn-primary" id="btn1" type="submit">delete</button>
+                            </form></td>
+
+                    </tr>
+                    {% endfor %}
+<!--                    <tr>-->
+<!--                      <th scope="row">2</th>-->
+<!--                      <td>Jacob</td>-->
+<!--                      <td>Thornton</td>-->
+<!--                      <td>@fat</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                      <th scope="row">3</th>-->
+<!--                      <td>Larry</td>-->
+<!--                      <td>the Bird</td>-->
+<!--                      <td>@twitter</td>-->
+<!--                    </tr>-->
+                  </tbody>
+                </table>
+            </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+</body>
+</html>
+{% endblock %}

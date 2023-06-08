@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends 'web.html' %}
+{% block content %}
+<html lang="en">
+<head>
+
+</head>
+
+<body>
+<div class="card">
+           <div class="card-body">
+           <div class="card-title">Vertical Form</div>
+           <hr>
+            <form method="post" action="{% url 'cartaddfun' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+           <div class="form-group">
+            <label for="input-1">Add Category</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Add Category" name="categoryname">
+           </div>
+           <div class="form-group">
+            <label for="input-2">Description</label>
+            <input type="text" class="form-control" id="input-2" placeholder="Description" name="description">
+           </div><br>
+
+<div class="custom-file">
+
+  <input type="file" class="custom-file-input" id="customFile" name="Images">
+  <label class="custom-file-label" for="customFile">Choose Image</label>
+</div><br><br>
+
+
+           <br>
+           <div class="form-group">
+            <button type="submit" class="btn btn-light px-5"><i class="icon-lock"></i> Submit</button>
+          </div>
+          </form>
+         </div>
+         </div>
+
+
+
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+{% extends 'indexs.html' %}
+
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+
+
+<div class="card" style="margin-top:100px; width:1200px; margin-left:100px; margin-bottum:200px;">
+            <div class="card-body">
+              <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="margin-top:100;">
+                <h6 class="section-title bg-white text-center text-primary px-3">Packages</h6>
+                <h1 class="mb-5">All Books Details</h1>
+            </div>
+			  <div class="table-responsive">
+               <table class="table" style="border: 5px solid black;">
+                  <thead>
+                    <tr>
+                      <th scope="col">Book Name</th>
+                      <th scope="col">Auther Name</th>
+                      <th scope="col">Language</th>
+                      <th scope="col">Price</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Option</th>
+                    </tr>
+                  </thead>
+
+
+                   {% for i in data %}
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{i.BookName}}</th>
+                        <td>{{i.AutherName}}</td>
+                      <td>{{i.Language}}</td>
+                      <td>{{i.Price}}</td>
+                      <td>{{i.qty}}</td>
+                        <td> <form action="" >
+                            <button  style="border: 2px solid black; width:100px;" class="btn btn-info" type="submit">Issued</button>
+                            </form></td>
+
+                    </tr>
+
+
+                  </tbody>
+                   {% endfor %}
+                   {% for i in datas %}
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{i.BookName}}</th>
+                        <td>{{i.AutherName}}</td>
+                      <td>{{i.Language}}</td>
+                      <td>{{i.Price}}</td>
+                      <td>{{i.qty}}</td>
+                        <td> <form action="" >
+                            <button style="border: 2px solid black; width:100px;" class="btn btn-warning" type="submit">Pending</button>
+                            </form></td>
+
+                    </tr>
+
+
+                  </tbody>
+                   {% endfor %}
+                   {% for i in book %}
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{i.BookName}}</th>
+                        <td>{{i.AutherName}}</td>
+                      <td>{{i.Language}}</td>
+                      <td>{{i.Price}}</td>
+                      <td>{{i.qty}}</td>
+                        <td> <form action="" >
+                            <button style="border: 2px solid black; width:100px;" class="btn btn-danger" type="submit">Canceled</button>
+                            </form></td>
+
+                    </tr>
+
+
+                  </tbody>
+                   {% endfor %}
+
+
+                </table>
+            </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+</div>
+<br><br><br><br><br><br>
+{% endblock %}
+
+</body>
+</html>

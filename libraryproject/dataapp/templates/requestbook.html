@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% extends 'web.html' %}
+{% block content %}
+<html lang="en">
+<head>
+
+</head>
+
+<body>
+
+{% for i in requests %}
+
+{% endfor %}
+
+<div class="col-lg-6">
+          <div class="card"  style="width:1100px;">
+            <div class="card-body">
+
+              <h2 class="card-title">Requested Books</h2>
+			  <div class="table-responsive">
+               <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                      <th scope="col">Book Name</th>
+                      <th scope="col">Auther Name</th>
+                      <th scope="col">Language</th>
+                        <th scope="col">Book Price</th>
+                         <th scope="col">Quantity</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Option</th>
+                    </tr>
+                  </thead>
+
+                   {% for i in requests %}
+                  <tbody>
+                    <tr>
+                      <th>{{i.Username}}</th>
+
+                        <th>{{i.Email}}</th>
+
+                      <td>{{i.BookName}}</td>
+                      <td>{{i.AutherName}}</td>
+                      <td>{{i.Language}}</td>
+                        <td>{{i.Price}}</td>
+<!--                        <td>{{i.qty}}</td>-->
+                        <td>{% if i.qty < 1 %} Out Of Stock {% else %}{{i.qty}} {% endif %}</td>
+                         <td><form method="post" action="{% url 'accept' dataid=i.id %}">
+                                         {% csrf_token %}
+                                     <input type="hidden" name="Username" id="username" value="{{i.Username}}">
+                                         <input type="hidden" name="Email" id="email" value="{{i.email}}">
+                                         <input type="hidden" name="BookName" id="BookName" value="{{i.BookName}}">
+                                         <input type="hidden" name="AutherName" id="AutherName" value="{{i.AutherName}}">
+                                         <input type="hidden" name="Language" id="Language" value="{{i.Language}}">
+                                         <input type="hidden" name="Price" id="Price" value="{{i.Price}}">
+                                         <input type="hidden" name="qty" id="qty" value="{{i.qty}}">
+
+                            <button class="btn btn-primary" id="btn1" type="submit">Accept</button>
+                            </form></td>
+                          <td><form method="post" action="{% url 'cancels' dataid=i.id %}">
+                                         {% csrf_token %}
+                                     <input type="hidden" name="Username"  value="{{i.Username}}">
+                                         <input type="hidden" name="Email"  value="{{i.email}}">
+                                         <input type="hidden" name="BookName"  value="{{i.BookName}}">
+                                         <input type="hidden" name="AutherName"  value="{{i.AutherName}}">
+                                         <input type="hidden" name="Language"  value="{{i.Language}}">
+                                         <input type="hidden" name="Price"  value="{{i.Price}}">
+                                         <input type="hidden" name="qty"  value="{{i.qty}}">
+
+                            <button class="btn btn-primary"  type="submit">Cancel</button>
+                            </form></td>
+
+                    </tr>
+                    {% endfor %}
+<!--                    <tr>-->
+<!--                      <th scope="row">2</th>-->
+<!--                      <td>Jacob</td>-->
+<!--                      <td>Thornton</td>-->
+<!--                      <td>@fat</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                      <th scope="row">3</th>-->
+<!--                      <td>Larry</td>-->
+<!--                      <td>the Bird</td>-->
+<!--                      <td>@twitter</td>-->
+<!--                    </tr>-->
+                  </tbody>
+                </table>
+            </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+</body>
+</html>
+{% endblock %}
